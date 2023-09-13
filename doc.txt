@@ -1,0 +1,18 @@
+Question 1: How does the "ADD employees.sql /docker-entrypoint-initdb.d/employees.sql" command in your Dockerfile work?
+Answer: The "ADD employees.sql /docker-entrypoint-initdb.d/employees.sql" command serves to copy the "employees.sql" file into the Docker container. This specific destination directory, "/docker-entrypoint-initdb.d/," is conventionally used for initializing a database with custom SQL scripts. In this context, "employees.sql" is used to bootstrap the database, effectively importing the "employee" table into the Docker container within the "/docker-entrypoint-initdb.d/" directory.
+
+Question 2: Explain your approach for "Creating and reading data from the database using mariadb.py." Please provide a concise overview.
+Answer: To accomplish "Creating and reading data from the database with mariadb.py":
+
+I initiated the MariaDB container with the following command:
+
+css
+Copy code
+docker run --name employees-db -e MYSQL_ROOT_PASSWORD=irdnam -e MYSQL_DATABASE=workplace -e MYSQL_USER=mandri -e MYSQL_PASSWORD=irdnam -p 3306:3306 -d mariadb
+I adjusted the username and password in the mariadb.py script to align with the credentials specified in my Dockerfile.
+
+Since I intended to utilize localhost as the host (as my MariaDB container and script are in the same Docker network), I left the host parameter unchanged.
+
+Before executing mariadb.py, I ensured that I had installed the mysql-connector-python library using pip install mysql-connector-python.
+
+Finally, I ran python mariadb.py to execute the script, thereby creating and retrieving data from the database.
